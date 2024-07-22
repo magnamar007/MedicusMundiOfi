@@ -69,7 +69,7 @@ namespace CapaDatos
             return respuesta;
         }
 
-        public List<EProyecto> ObtenerProyectos()
+        public List<EProyecto> ObtenerProyectosZ()
         {
             List<EProyecto> rptListaRol = new List<EProyecto>();
 
@@ -77,7 +77,7 @@ namespace CapaDatos
             {
                 using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
                 {
-                    using (SqlCommand comando = new SqlCommand("listArea", con))
+                    using (SqlCommand comando = new SqlCommand("listProyecto", con))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
                         con.Open();
@@ -107,10 +107,49 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 //throw ex;
-                throw new Exception("Error al obtener las areas", ex);
+                throw new Exception("Error al obtener los proyectos", ex);
             }
 
             return rptListaRol;
+        }
+        public bool ActualizarProyecto(EProyecto oProyecto)
+        {
+            bool respuesta = false;
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_ActualizarProyecto", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@IdProducto", oProyecto.IdProyecto);
+                        cmd.Parameters.AddWithValue("@Nombre", oProyecto.Nombre);
+                        cmd.Parameters.AddWithValue("@Descripcion", oProyecto.Descripcion);
+                        cmd.Parameters.AddWithValue("@FechaIni", oProyecto.FechaIni);
+                        cmd.Parameters.AddWithValue("@FechaIni", oProyecto.FechaIni);                        
+                        cmd.Parameters.AddWithValue("@Presupuesto", oProyecto.Presupuesto);
+                        cmd.Parameters.AddWithValue("@Activo", oProyecto.Activo);
+
+                        SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        respuesta = Convert.ToBoolean(outputParam.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Actualizar. Intente más tarde.", ex);
+            }
+
+            return respuesta;
         }
     }
 }

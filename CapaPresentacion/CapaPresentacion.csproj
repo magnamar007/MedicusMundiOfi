@@ -78,6 +78,7 @@
     <Content Include="img\undraw_rocket.svg" />
     <Content Include="InicioMedicus.aspx" />
     <Content Include="jsfr\PersonalM.js" />
+    <Content Include="jsfr\ProyectosM.js" />
     <Content Include="js\sb-admin-2.js" />
     <Content Include="js\sb-admin-2.min.js" />
     <Content Include="js\vistas\chart-bar-demo.js" />
