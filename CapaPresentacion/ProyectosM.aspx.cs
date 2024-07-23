@@ -35,18 +35,20 @@ namespace CapaPresentacion
             }
         }
         [WebMethod]
-        public static Respuesta<bool> GuardarProyect(EProyecto oUsuario)
+        public static Respuesta<bool> GuardarProyect(EProyecto oProyecto, string fechainicio, string fechafin)
         {
             try
             {
 
+                DateTime inicio = Convert.ToDateTime(fechainicio);
+                DateTime fin = Convert.ToDateTime(fechafin);
                 EProyecto obj = new EProyecto
                 {
-                    Nombre = oUsuario.Nombre,
-                    Descripcion = oUsuario.Descripcion,
-                    FechaIni = oUsuario.FechaIni,
-                    FechaFin = oUsuario.FechaFin,
-                    Presupuesto = oUsuario.Presupuesto
+                    Nombre = oProyecto.Nombre,
+                    Descripcion = oProyecto.Descripcion,
+                    FechaIni = inicio,
+                    FechaFin = fin,
+                    Presupuesto = oProyecto.Presupuesto
                 };
 
                 bool Respuesta = NProyecto.getInstance().RegistrarProyecto(obj);
@@ -63,26 +65,27 @@ namespace CapaPresentacion
             }
         }
         [WebMethod]
-        public static Respuesta<bool> ActualizarProyecto(EProyecto oUsuario)
+        public static Respuesta<bool> ActualizarProyecto(EProyecto oProyecto, string fechainicio, string fechafin)
         {
             try
             {
-                var imageUrl = string.Empty;
+                DateTime inicio = Convert.ToDateTime(fechainicio);
+                DateTime fin = Convert.ToDateTime(fechafin);
                 List<EProyecto> Lista = NProyecto.getInstance().ObtenerProyectosZ();
-                var item = Lista.FirstOrDefault(x => x.IdProyecto == oUsuario.IdProyecto);
+                var item = Lista.FirstOrDefault(x => x.IdProyecto == oProyecto.IdProyecto);
 
                 if (item == null)
                 {
                     return new Respuesta<bool>() { estado = false, valor = "Ocurrio un inconveniente intente mas tarde" };
                 }
                 
-                item.IdProyecto = oUsuario.IdProyecto;
-                item.Nombre = oUsuario.Nombre;
-                item.Descripcion = oUsuario.Descripcion;
-                item.FechaIni = oUsuario.FechaIni;
-                item.FechaFin = oUsuario.FechaFin;
-                item.Presupuesto = oUsuario.Presupuesto;
-                item.Activo = oUsuario.Activo;
+                item.IdProyecto = oProyecto.IdProyecto;
+                item.Nombre = oProyecto.Nombre;
+                item.Descripcion = oProyecto.Descripcion;
+                item.FechaIni = inicio;
+                item.FechaFin = fin;
+                item.Presupuesto = oProyecto.Presupuesto;
+                item.Activo = oProyecto.Activo;
 
                 bool Respuesta = NProyecto.getInstance().ActualizarProyecto(item);
                 var respuesta = new Respuesta<bool>

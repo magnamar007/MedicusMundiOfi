@@ -124,11 +124,11 @@ namespace CapaDatos
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@IdProducto", oProyecto.IdProyecto);
+                        cmd.Parameters.AddWithValue("@IdProyecto", oProyecto.IdProyecto);
                         cmd.Parameters.AddWithValue("@Nombre", oProyecto.Nombre);
                         cmd.Parameters.AddWithValue("@Descripcion", oProyecto.Descripcion);
                         cmd.Parameters.AddWithValue("@FechaIni", oProyecto.FechaIni);
-                        cmd.Parameters.AddWithValue("@FechaIni", oProyecto.FechaIni);                        
+                        cmd.Parameters.AddWithValue("@FechaFin", oProyecto.FechaFin);                        
                         cmd.Parameters.AddWithValue("@Presupuesto", oProyecto.Presupuesto);
                         cmd.Parameters.AddWithValue("@Activo", oProyecto.Activo);
 

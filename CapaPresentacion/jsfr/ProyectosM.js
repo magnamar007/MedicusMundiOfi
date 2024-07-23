@@ -13,6 +13,15 @@ const MODELO_BASE = {
 }
 
 $(document).ready(function () {
+
+    $("#OcultarEs").hide();
+    $.datepicker.setDefaults($.datepicker.regional["es"])
+
+    $("#txtPresupuesto").val("0");
+    $("#txtFechaInicio").datepicker({ dateFormat: "dd/mm/yy" });
+    $("#txtFechaFin").datepicker({ dateFormat: "dd/mm/yy" });
+    $("#txtFechaInicio").val(ObtenerFecha());
+    $("#txtFechaFin").val(ObtenerFecha());
     dtProyect();
 })
 
@@ -58,10 +67,7 @@ function dtProyect() {
             { "data": "IdProyecto", "visible": false, "searchable": false },
             {
                 "data": "Nombre"
-            },
-            { "data": "Descripcion" },
-            { "data": "Fechainistrin" },
-            { "data": "Fechainistrfin"},
+            },            
             { "data": "Presupuesto" },
             {
                 "data": "Activo", render: function (data) {
@@ -108,20 +114,25 @@ function sendDataToServer(request) {
         dataType: "json",
         beforeSend: function () {
             // Mostrar overlay de carga antes de enviar la solicitud modal-content
-            $(".modal-content").LoadingOverlay("show");
+            $("#loaddd").LoadingOverlay("show");
         },
         success: function (response) {
-            $(".modal-content").LoadingOverlay("hide");
-            if (response.d) {
-                dtProduc();
-                $('#modalrolp').modal('hide');
-                swal("Mensaje", "Registro Exitoso", "success");
+            $("#loaddd").LoadingOverlay("hide");
+            if (response.d.estado) {
+                dtProyect();
+
+                $('#txtNombreProyecto').val("");
+                $('#txtDescripcion').val("");
+                $('#txtPresupuesto').val("0");
+
+                alert(response.d.valor);
+
             } else {
-                swal("Mensaje", "Error al registrar", "warning");
+                alert(response.d.valor);
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            $(".modal-content").LoadingOverlay("hide");
+            $("#loaddd").LoadingOverlay("hide");
             console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
         }
     });
@@ -131,14 +142,13 @@ function registerDataAjax() {
     
 
     var request = {
-        oProyecto: {
-            IdProyecto: parseInt($("#txtIdProyecto").val()),
-            Nombre: ($("#txtNombreProyecto").val()),
-            Descripcion: ($("#txtDescripcion").val()),
-            FechaIni: ($("#txtFechaInicio").val()),
-            FechaFin: ($("#txtFechaFin").val()),
+        oProyecto: {            
+            Nombre: $("#txtNombreProyecto").val(),
+            Descripcion: $("#txtDescripcion").val(),
             Presupuesto: parseFloat($("#txtPresupuesto").val())
-        }
+        },
+        fechainicio: $("#txtFechaInicio").val(),
+        fechafin: $("#txtFechaFin").val()
     };
     
     sendDataToServer(request);
@@ -154,20 +164,28 @@ function sendDataToServerEdit(request) {
         dataType: "json",
         beforeSend: function () {
             // Mostrar overlay de carga antes de enviar la solicitud modal-content
-            $(".modal-content").LoadingOverlay("show");
+            $("#loaddd").LoadingOverlay("show");
         },
         success: function (response) {
-            $(".modal-content").LoadingOverlay("hide");
+            $("#loaddd").LoadingOverlay("hide");
             if (response.d.Estado) {
                 dtProduc();
-                $('#modalrolp').modal('hide');
-                swal("Mensaje", response.d.Mensage, response.d.Valor);
+
+                $('#txtIdProyecto').val("0");
+                $('#txtNombreProyecto').val("");
+                $('#txtDescripcion').val("");
+                //$('#txtFechaInicio').val("");
+                //$('#txtFechaFin').val("");
+                $('#txtPresupuesto').val("0");
+                //$("#cboEstado").val() == "1" ? true : false;
+                $("#OcultarEs").hide();
+                alert(response.d.valor);
             } else {
-                swal("Mensaje", response.d.Mensage, response.d.Valor);
+                alert(response.d.valor);
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            $(".modal-content").LoadingOverlay("hide");
+            $("#loaddd").LoadingOverlay("hide");
             console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
         }
     });
@@ -175,65 +193,73 @@ function sendDataToServerEdit(request) {
 
 function editarDataAjax() {
     
-    const modelo = structuredClone(MODELO_BASE);
-    modelo["IdProyecto"] = parseInt($("#txtIdProyecto").val());
-    modelo["Nombre"] = $("#txtNombreProyecto").val();
-    modelo["Descripcion"] = $("#txtDescripcion").val();
-    modelo["FechaIni"] = $("#txtFechaInicio").val();
-    modelo["FechaFin"] = $("#txtFechaFin").val();
-    modelo["Presupuesto"] = parseFloat($("#txtPresupuesto").val()); // Convertir a float
-    modelo["Activo"] = ($("#cboEstado").val() == "1" ? true : false);
+    //const modelo = structuredClone(MODELO_BASE);
+    //modelo["IdProyecto"] = parseInt($("#txtIdProyecto").val());
+    //modelo["Nombre"] = $("#txtNombreProyecto").val();
+    //modelo["Descripcion"] = $("#txtDescripcion").val();
+    //modelo["FechaIni"] = $("#txtFechaInicio").val();
+    //modelo["FechaFin"] = $("#txtFechaFin").val();
+    //modelo["Presupuesto"] = parseFloat($("#txtPresupuesto").val()); // Convertir a float
+    //modelo["Activo"] = ($("#cboEstado").val() == "1" ? true : false);
     
     var request = {
-        oProyecto: modelo
+        oProyecto: {
+            IdProyecto: parseInt($("#txtIdProyecto").val()),
+            Nombre: $("#txtNombreProyecto").val(),
+            Descripcion: $("#txtDescripcion").val(),
+            Presupuesto: parseFloat($("#txtPresupuesto").val()),
+            Activo: ($("#cboEstado").val() == "1" ? true : false)
+        },
+        fechainicio: $("#txtFechaInicio").val(),
+        fechafin: $("#txtFechaFin").val()
     };
 
     sendDataToServerEdit(request);
     
 }
 
-function mostrarModal(modelo, cboEstadoDeshabilitado = true) {
-    // Verificar si modelo es null
-    modelo = modelo ?? MODELO_BASE;
+//function mostrarModal(modelo, cboEstadoDeshabilitado = true) {
+//    // Verificar si modelo es null
+//    modelo = modelo ?? MODELO_BASE;
 
-    $("#txtIdUsuario").val(modelo.IdUsuario);
-    $("#txtNombre").val(modelo.Nombres);
-    $("#txtapellido").val(modelo.Apellidos);
-    $("#txtCorreo").val(modelo.Correo);
-    $("#txtClave").val(modelo.Clave);
-    $("#txtTelefono").val(modelo.Celular);
-    $("#cboRol").val(modelo.IdArea == 0 ? $("#cboRol option:first").val() : modelo.IdArea);
-    $("#cboEstado").val(modelo.Activo == true ? 1 : 0);
-    $("#imgUsuarioM").attr("src", modelo.ImageFull == "" ? "imagenesU/usuaricon.png" : modelo.ImageFull);
+//    $("#txtIdUsuario").val(modelo.IdUsuario);
+//    $("#txtNombre").val(modelo.Nombres);
+//    $("#txtapellido").val(modelo.Apellidos);
+//    $("#txtCorreo").val(modelo.Correo);
+//    $("#txtClave").val(modelo.Clave);
+//    $("#txtTelefono").val(modelo.Celular);
+//    $("#cboRol").val(modelo.IdArea == 0 ? $("#cboRol option:first").val() : modelo.IdArea);
+//    $("#cboEstado").val(modelo.Activo == true ? 1 : 0);
+//    $("#imgUsuarioM").attr("src", modelo.ImageFull == "" ? "imagenesU/usuaricon.png" : modelo.ImageFull);
 
-    // Configurar el estado de cboEstado según cboEstadoDeshabilitado jquery v 1.11.1
-    $("#cboEstado").prop("disabled", cboEstadoDeshabilitado);
+//    // Configurar el estado de cboEstado según cboEstadoDeshabilitado jquery v 1.11.1
+//    $("#cboEstado").prop("disabled", cboEstadoDeshabilitado);
 
-    //$("#txtCorreo").prop("disabled", !cboEstadoDeshabilitado);
-    $("#txtFoto").val("");
+//    //$("#txtCorreo").prop("disabled", !cboEstadoDeshabilitado);
+//    $("#txtFoto").val("");
 
-    $("#modalData").modal("show");
-}
-$('#btnGuardarCambioM').on('click', function () {
+//    $("#modalData").modal("show");
+//}
+//$('#btnGuardarCambioM').on('click', function () {
 
-    const inputs = $("input.model").serializeArray();
-    const inputs_sin_valor = inputs.filter((item) => item.value.trim() == "")
+//    const inputs = $("input.model").serializeArray();
+//    const inputs_sin_valor = inputs.filter((item) => item.value.trim() == "")
 
-    if (inputs_sin_valor.length > 0) {
-        const mensaje = `Debe completar el campo : "${inputs_sin_valor[0].name}"`;
-        toastr.warning("", mensaje)
-        $(`input[name="${inputs_sin_valor[0].name}"]`).focus()
-        return;
-    }
+//    if (inputs_sin_valor.length > 0) {
+//        const mensaje = `Debe completar el campo : "${inputs_sin_valor[0].name}"`;
+//        toastr.warning("", mensaje)
+//        $(`input[name="${inputs_sin_valor[0].name}"]`).focus()
+//        return;
+//    }
 
 
-    if (parseInt($("#txtIdProyecto").val()) == 0) {
-        registerDataAjax();
-    } else {
-        //swal("Mensaje", "Falta para Actualizar personal.", "warning")
-        editarDataAjax();
-    }
-})
+//    if (parseInt($("#txtIdProyecto").val()) == 0) {
+//        registerDataAjax();
+//    } else {
+//        //swal("Mensaje", "Falta para Actualizar personal.", "warning")
+//        editarDataAjax();
+//    }
+//})
 $("#tbProyecto tbody").on("click", ".btn-editar", function (e) {
     e.preventDefault();
     let filaSeleccionada;
@@ -245,18 +271,53 @@ $("#tbProyecto tbody").on("click", ".btn-editar", function (e) {
     }
 
     const model = table.row(filaSeleccionada).data();
-    mostrarModal(model, false);
-})
-$('#btnGuardarCambio').on('click', function () {
 
+    $('#txtIdProyecto').val(model.IdProyecto);
+    $('#txtNombreProyecto').val(model.Nombre);
+    $('#txtDescripcion').val(model.Descripcion);
+    $('#txtFechaInicio').val(model.Fechainistrin);
+    $('#txtFechaFin').val(model.Fechainistrfin);
+    $('#txtPresupuesto').val(model.Presupuesto);
+    $("#cboEstado").val() == "1" ? true : false;
+    $("#OcultarEs").show();
+
+})
+$('#btnGuardarCambios').on('click', function () {
+
+    const inputs = $("input.input-validar").serializeArray();
+    const inputs_sin_valor = inputs.filter((item) => item.value.trim() =="")
+
+    if (inputs_sin_valor > 0) {
+        const mensaje = `Debe completar el campo : "${inputs_sin_valor[0].name}"`;
+        toast.warning("", mensaje)
+        $(`input[name="${inputs_sin_valor[0].name}"]`).focus()
+        return;
+    }
+
+    if ($("#txtDescripcion").val().trim() == "") {
+        toastr.warning("", "Debe completar el campo Descripcion");
+        $("#txtDescripcion").focus();
+        return;
+    }
+
+    var montoPresupuesto = parseFloat($("#txtPresupuesto").val().trim());
+    if (isNaN(montoPresupuesto) || montoPresupuesto === 0) {
+        toastr.warning("", "Debe ingresar un presupuesto valido");
+        $("#txtPresupuesto").focus();
+        return;
+
+    }
     if (parseInt($("#txtIdProyecto").val()) == 0) {
         //swal("Mensaje", "Guardado.", "success")
         //registerDataAjax();
         registerDataAjax();
     } else {
-        alert("No se puede registrar");
-        //swal("Mensaje", "Falta para Actualizar personal.", "warning")
+        //alert("para actualizar");
         //editarDataAjaxU();
+        editarDataAjax();
     }
+    
+
+
 
 })
