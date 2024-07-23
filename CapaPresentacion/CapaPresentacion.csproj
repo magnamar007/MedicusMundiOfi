@@ -77,6 +77,7 @@
     <Content Include="img\undraw_profile_3.svg" />
     <Content Include="img\undraw_rocket.svg" />
     <Content Include="InicioMedicus.aspx" />
+    <Content Include="jsfr\TareaM.js" />
     <Content Include="jsfr\PersonalM.js" />
     <Content Include="jsfr\ProyectosM.js" />
     <Content Include="js\sb-admin-2.js" />
@@ -86,6 +87,7 @@
     <Content Include="js\vistas\datatables-demo.js" />
     <Content Include="PersonalM.aspx" />
     <Content Include="ProyectosM.aspx" />
+    <Content Include="TareasM.aspx" />
     <Content Include="vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="vendor\bootstrap\js\bootstrap.js" />
@@ -1810,6 +1812,13 @@
     </Compile>
     <Compile Include="ProyectosM.aspx.designer.cs">
       <DependentUpon>ProyectosM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TareasM.aspx.cs">
+      <DependentUpon>TareasM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TareasM.aspx.designer.cs">
+      <DependentUpon>TareasM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utilidadesj.cs" />
   </ItemGroup>

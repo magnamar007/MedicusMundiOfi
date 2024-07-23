@@ -19,5 +19,9 @@ namespace CapaEntidad
 
         public EUsuario oEUsuario { get; set; }
         public EProyecto oEProyecto { get; set; }
+
+        public string FeEntregaStrCalend => FechaEntrega.ToString("yyyy-MM-dd");
+        public string FeEntregaStrList => FechaEntrega.ToString("dd/MM/yyyy");
+        public string Color => Estado == "Sin Entregar" ? "#8BC34A" : "#009688";
     }
 }
