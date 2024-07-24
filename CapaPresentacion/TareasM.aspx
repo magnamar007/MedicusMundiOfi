@@ -25,11 +25,12 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4" id="loadTar">
                     <div class="card-header py-3 bg-second-primary">
                         <h6 class="m-0 font-weight-bold text-white">Tarea</h6>
                     </div>
                     <div class="card-body">
+                        <input type="hidden" value="0" id="txtIdTarea">
                         <div class="container-center">
                             <label for="txtTarea">Descripcion de tarea</label>
                             <textarea class="form-control" id="txtTarea" name="DescripcionTarea" cols="40" rows="3" placeholder="Escriba la descripcion de la Tarea"></textarea>
@@ -72,10 +73,10 @@
                             <table class="table table-striped table-sm" id="tbTarea">
                                 <thead>
                                     <tr>
-                                        <th>Tarea</th>
-                                        <th>Fecha</th>
-                                        <th>Usuario</th>
+                                        <th>ID Tarea</th>
                                         <th>Proyecto</th>
+                                        <th>fecha</th>
+                                        <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -92,7 +93,5 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
     <script src="vendor/jquery-ui/jquery-ui.js"></script>
     <script src="vendor/jquery-ui/idioma/datepicker-es.js"></script>
-    <script src="jsfr/TareaM.js" type="text/javascript"></script>
-    <script src="jsfr/PersonalM.js" type="text/javascript"></script>
-    <script src="jsfr/ProyectosM.js" type="text/javascript"></script>
+    <script src="jsfr/TareaM.js" type="text/javascript"></script>    
 </asp:Content>

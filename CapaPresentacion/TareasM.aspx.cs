@@ -98,5 +98,32 @@ namespace CapaPresentacion
                 return new Respuesta<bool> { estado = false, valor = "Ocurrió un error: " + ex.Message };
             }
         }
+        [WebMethod]
+        public static Respuesta<bool> ActualizarTarea(ETarea oTarea, string fechaEntrega)
+        {
+            try
+            {
+                DateTime entrega = Convert.ToDateTime(fechaEntrega);
+                ETarea obj = new ETarea
+                {
+                    Idtarea = oTarea.Idtarea,
+                    IdUsuario = oTarea.IdUsuario,
+                    IdProyecto = oTarea.IdProyecto,
+                    DescripcionTarea = oTarea.DescripcionTarea,
+                    FechaEntrega = entrega
+                };
+                bool Respuesta = NTarea.getInstance().RegistrarTarea(obj);
+                var respuesta = new Respuesta<bool>
+                {
+                    estado = Respuesta,
+                    valor = Respuesta ? "Se registro correctamente" : "Error al registrar intente mas tarde"
+                };
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<bool> { estado = false, valor = "Ocurrió un error: " + ex.Message };
+            }
+        }
     }
 }

@@ -2,36 +2,48 @@
 
 $(document).ready(function () {
 
+    cargarUsuarios();
+    cargarProyectos();
     
     $.datepicker.setDefaults($.datepicker.regional["es"])
 
-    $("#txtPresupuesto").val("0");
-    $("#txtFechaInicio").datepicker({ dateFormat: "dd/mm/yy" });
-    $("#txtFechaFin").datepicker({ dateFormat: "dd/mm/yy" });
-    $("#txtFechaInicio").val(ObtenerFecha());
-    $("#txtFechaFin").val(ObtenerFecha());
-    dtProyect();
+    
+    $("#txtFechadeEntrega").datepicker({ dateFormat: "dd/mm/yy" });
+   
+    $("#txtFechadeEntrega").val(ObtenerFecha());
+    //dtListaTareasId();
+    
 })
 
+function ObtenerFecha() {
 
-function dtProyect() {
+    var d = new Date();
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + d.getFullYear();
+
+    return output;
+}
+function dtTarea() {
     // Verificar si el DataTable ya está inicializado
-    if ($.fn.DataTable.isDataTable("#tbProyecto")) {
+    if ($.fn.DataTable.isDataTable("#tbTarea")) {
         // Destruir el DataTable existente
-        $("#tbProyecto").DataTable().destroy();
+        $("#tbTarea").DataTable().destroy();
         // Limpiar el contenedor del DataTable
-        $('#tbProyecto tbody').empty();
+        $('#tbTarea tbody').empty();
     }
 
-    table = $("#tbProyecto").DataTable({
+    var request = { IdPer: $("#cboUsuarios").val()}
+
+    table = $("#tbTarea").DataTable({
         responsive: true,
         "ajax": {
-            "url": 'ProyectosM.aspx/ObtenerProyectos',
+            "url": 'TareasM.aspx/usp_ObtenerTareasId',
             "type": "POST", // Cambiado a POST
             "contentType": "application/json; charset=utf-8",
             "dataType": "json",
-            "data": function (d) {
-                return JSON.stringify(d);
+            "data": function () {
+                return JSON.stringify(request);
             },
             "dataSrc": function (json) {
                 //console.log("Response from server:", json.d.objeto);
@@ -43,11 +55,12 @@ function dtProyect() {
             }
         },
         "columns": [
-            { "data": "IdProyecto", "visible": false, "searchable": false },
+            { "data": "Idtarea", "visible": false, "searchable": false },
             {
-                "data": "Nombre"
+                "data": "Proyecto"
             },
-            { "data": "Presupuesto" },
+            { "data": "FeEntregaStrList" },
+            { "data": "Estado" },            
             {
                 "data": "Activo", render: function (data) {
                     if (data == true)
@@ -84,17 +97,64 @@ function dtProyect() {
     });
 }
 
+function dtListaTareasId() {
+    console.log("Función dtListaTareasId ejecutada");
+    if ($.fn.DataTable.isDataTable("#tbTarea")) {
+        $("#tbTarea").DataTable().destroy();
+        $('#tbTarea tbody').empty();
+    }
 
+    //var request = { IdPer: $("#cboUsuarios").val() }
+
+    var request = { IdPer: $("#cboUsuarios").val() == null ? 0 : $("#cboUsuarios").val() }
+
+    table = $("#tbTarea").DataTable({
+        responsive: true,
+        "ajax": {
+            "url": 'TareasM.aspx/ListTareasId',
+            "type": "POST",
+            "contentType": "application/json; charset=utf-8",
+            "dataType": "json",
+            "data": function () {
+                return JSON.stringify(request);
+            },
+            "dataSrc": function (json) {
+                if (json.d.estado) {
+                    return json.d.objeto;
+                } else {
+                    return [];
+                }
+            }
+        },
+        "columns": [
+            { "data": "Idtarea", "visible": false, "searchable": false },
+            { "data": "oEProyecto.Nombre" },
+            { "data": "FeEntregaStrList" },
+            { "data": "Estado" },
+            {
+                "defaultContent": '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
+                    '<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>',
+                "orderable": false,
+                "searchable": false,
+                "width": "80px"
+            }
+        ],
+        "dom": "rt",
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
+    });
+}
 function registerDataAjax() {
     //parseFloat($("#txtPresupuesto").val())
 
     var request = {
         oTarea: {
-            IdUsuario: parseInt($("#txtIdusu").val()),
-            IdProyecto: parseInt($("#txtIdproy").val()),
-            DescripcionTarea: $("#txtDescripcion").val()
+            IdUsuario: parseInt($("#cboUsuarios").val()),
+            IdProyecto: parseInt($("#cboProyectos").val()),
+            DescripcionTarea: $("#txtTarea").val()
         },
-        fechaEntrega: $("#txtfechaentreg").val()
+        fechaEntrega: $("#txtFechadeEntrega").val()
     }
 
     $.ajax({
@@ -113,14 +173,10 @@ function registerDataAjax() {
                 //dtProyectos();
 
                 //verificar si borrmos id usua
-                $("#txtIdusu").val("0");
-                $("#txtIdproy").val("0");
-                $("#txtNombreUsuario").val("");
-                $("#txtCargo").val("");
-                $("#txtNombreProyecto").val("");
-                $("#txtPresupuesto").val("");
+                
+                $("#txtTarea").val("");
+                
 
-                $("#txtDescripcion").val("");
 
                 alert(response.d.valor);
 
@@ -134,3 +190,91 @@ function registerDataAjax() {
         }
     });
 }
+
+function cargarUsuarios() {
+    $("#cboUsuarios").html("");
+
+    $.ajax({
+        type: "POST",
+        url: "PersonalM.aspx/ObtenerUsuario",
+        data: {},
+        contentType: 'application/json; charset=utf-8',
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+        },
+        success: function (data) {
+            if (data.d.estado) {
+                $.each(data.d.objeto, function (i, row) {
+                    $("<option>").attr({ "value": row.IdUsuario }).text(row.Nombres + " " + row.Apellidos).appendTo("#cboUsuarios");
+
+                })
+            }
+
+        }
+    });
+}
+function cargarProyectos() {
+    $("#cboProyectos").html("");
+
+    $.ajax({
+        type: "POST",
+        url: "ProyectosM.aspx/ObtenerProyectos",
+        data: {},
+        contentType: 'application/json; charset=utf-8',
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+        },
+        success: function (data) {
+            if (data.d.estado) {
+                $.each(data.d.objeto, function (i, row) {
+                    if (row.Activo == true) {
+                        $("<option>").attr({ "value": row.IdProyecto }).text(row.Nombre).appendTo("#cboProyectos");
+                    }
+
+                })
+            }
+
+        }
+    });
+}
+
+$('#btnResgistrarTarea').on('click', function () {
+
+    const inputs = $("input.input-validar").serializeArray();
+    const inputs_sin_valor = inputs.filter((item) => item.value.trim() == "")
+
+    
+
+    if ($("#txtTarea").val().trim() == "") {
+        toastr.warning("", "Debe completar el campo Tarea");
+        $("#txtTarea").focus();
+        return;
+    }
+
+    
+    if (parseInt($("#txtIdTarea").val()) == 0) {
+        //swal("Mensaje", "Guardado.", "success")
+        //registerDataAjax();
+        registerDataAjax();
+    } else {
+        alert("para actualizar");
+        //editarDataAjaxU();
+        //editarDataAjax();
+    }
+
+
+
+
+})
+
+//$("#cboUsuarios").change(dtListaTareasId());
+
+$("#cboUsuarios").change(function () {
+    console.log("Cambio detectado en cboUsuarios")
+    try {
+        dtListaTareasId();
+    } catch (error) {
+        console.error("Error en dtListaTareasId ", error);
+    }
+
+});
