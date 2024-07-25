@@ -41,5 +41,9 @@ namespace CapaNegocio
         {
             return DUsuario.getInstance().ActualizarUsuario(oUsuario);
         }
+        public int LoginUsuarioA(string Usuario, string Clave)
+        {
+            return DUsuario.getInstance().LoginUsuarioA(Usuario, Clave);
+        }
     }
 }

@@ -193,5 +193,38 @@ namespace CapaDatos
 
             return rptListaUsuario;
         }
+        public int LoginUsuarioA(string Usuario, string Clave)
+        {
+            int respuesta = 0;
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_ValidarUsuario", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("Correo", Usuario);
+                        cmd.Parameters.AddWithValue("Clave", Clave);
+                        SqlParameter outputParam = new SqlParameter("IdUsuario", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        respuesta = Convert.ToInt32(outputParam.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al encontrar el usuario. Intente más tarde.", ex);
+            }
+
+            return respuesta;
+        }
     }
 }
