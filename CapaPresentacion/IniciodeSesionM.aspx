@@ -61,7 +61,7 @@
     </div>
 
 
-
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="jsfr/IniciodeSesionM.js"></script>
         </div>
     </form>

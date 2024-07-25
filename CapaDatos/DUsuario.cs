@@ -193,7 +193,7 @@ namespace CapaDatos
 
             return rptListaUsuario;
         }
-        public int LoginUsuarioA(string Usuario, string Clave)
+        public int LoginUsuarioA(string Correo, string Clave)
         {
             int respuesta = 0;
 
@@ -205,7 +205,7 @@ namespace CapaDatos
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("Correo", Usuario);
+                        cmd.Parameters.AddWithValue("Correo", Correo);
                         cmd.Parameters.AddWithValue("Clave", Clave);
                         SqlParameter outputParam = new SqlParameter("IdUsuario", SqlDbType.Int)
                         {

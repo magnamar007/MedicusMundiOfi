@@ -80,7 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BandejaM.aspx" />
     <Content Include="css\Estilo.css" />
+    <Content Include="css\fullcalendar.min.css" />
     <Content Include="css\sb-admin-2.css" />
     <Content Include="css\sb-admin-2.min.css" />
     <Content Include="imagenesU\main-logo-transparent recortada.png" />
@@ -93,10 +95,15 @@
     <Content Include="img\undraw_rocket.svg" />
     <Content Include="IniciodeSesionM.aspx" />
     <Content Include="InicioMedicus.aspx" />
+    <Content Include="jsfr\BandejaM.js" />
     <Content Include="jsfr\IniciodeSesionM.js" />
     <Content Include="jsfr\TareaM.js" />
     <Content Include="jsfr\PersonalM.js" />
     <Content Include="jsfr\ProyectosM.js" />
+    <Content Include="vendor\calen\es.js" />
+    <Content Include="vendor\calen\fullcalendar.min.js" />
+    <Content Include="vendor\calen\jquery.min.js" />
+    <Content Include="vendor\calen\moment.min.js" />
     <Content Include="js\sb-admin-2.js" />
     <Content Include="js\sb-admin-2.min.js" />
     <Content Include="js\vistas\chart-bar-demo.js" />
@@ -1801,6 +1808,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BandejaM.aspx.cs">
+      <DependentUpon>BandejaM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BandejaM.aspx.designer.cs">
+      <DependentUpon>BandejaM.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Configuracion.cs" />
     <Compile Include="Home.Master.cs">
       <DependentUpon>Home.Master</DependentUpon>

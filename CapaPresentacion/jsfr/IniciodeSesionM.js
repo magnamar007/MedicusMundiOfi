@@ -1,14 +1,14 @@
 ﻿
 
-//$('#InicioM').on('click', function (e) {
-//    e.preventDefault();
-//    //loginUsuario();
-//    if ($("#emailM").val().trim() == "") {
-//        swal("Mensaje", "Ingrese un Correo", "warning");
-//        return;
-//    }
-//    loginUsuarioLoad();
-//})
+$('#InicioM').on('click', function (e) {
+    e.preventDefault();
+    //loginUsuario();
+    if ($("#emailM").val().trim() == "") {
+        alert('ingrese un correo');
+        return;
+    }
+    loginUsuarioLoad();
+})
 
 const container = document.getElementById('container');
 
@@ -57,8 +57,8 @@ function loginUsuarioLoad() {
 
     $.ajax({
         type: "POST",
-        url: "IniciarSesion.aspx/Iniciar",
-        data: JSON.stringify({ Usuario: $("#emailM").val(), Clave: $("#passwordM").val() }),
+        url: "IniciodeSesionM.aspx/Iniciar",
+        data: JSON.stringify({ correo: $("#emailM").val(), clave: $("#passwordM").val() }),
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
         beforeSend: function () {
@@ -70,11 +70,11 @@ function loginUsuarioLoad() {
             console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
         },
         success: function (response) {
-            $.LoadingOverlay("hide");
+            //$.LoadingOverlay("hide");
             if (response.d.estado) {
                 window.location.href = 'InicioMedicus.aspx';
             } else {
-                swal("oops!", "No se encontro el usuario", "warning")
+                alert("No se encontro el usuario")
             }
         }
     });
