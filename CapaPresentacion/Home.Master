@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="vendor/datatables/extensiones/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="vendor/datatables/extensiones/css/buttons.dataTables.min.css">
 
+    <!--modificado-->
+    
     <style>
         .no-style {
             list-style-type: none; /* Elimina las viñetas */
@@ -233,6 +235,7 @@
     <script src="vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
     <script src="vendor/datatables/extensiones/js/buttons.print.min.js"></script>
 
+    <!--modificado-->
     
     <asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
 </body>
