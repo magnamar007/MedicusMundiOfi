@@ -22,11 +22,11 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" id="exampleModalInput">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar titulo</h5>
+        <h5 class="modal-title" id="tituloModal"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <div id="descripcionModal"></div>
       </div>
       <div class="modal-footer">
 
@@ -39,6 +39,40 @@
     </div>
   </div>
 </div>
+
+    <div class="modal fade" id="modalTareas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="tareasModalInput">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloTarea"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="txtIdTarea" class="model" name="IdRserv" value="0" type="hidden" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-5">
+                            <input type="text" class="form-control input-sm" disabled id="txtTituloTarea">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="text" class="form-control input-sm" disabled id="txtFechaTarea">
+                        </div>
+                    </div>
+                    <div class="container-center">
+                    <label for="txtTarea">Descripcion de tarea</label>
+                    <textarea class="form-control" id="txtTarea" name="DescripcionTarea" cols="40" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success">agregar</button>
+                    <button type="button" class="btn btn-secondary">modificar</button>
+                    <button type="button" class="btn btn-danger">eliminar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
     <script src="vendor/calen/moment.min.js"></script>

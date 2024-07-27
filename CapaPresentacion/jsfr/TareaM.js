@@ -95,6 +95,7 @@ function dtTarea() {
             "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
         }
     });
+   
 }
 
 function dtListaTareasId() {
@@ -142,7 +143,16 @@ function dtListaTareasId() {
         "dom": "rt",
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        }
+        },
+       
+    });
+    $('#tbTarea tbody').on('click', '.btn-detalle', function (e) {
+        e.preventDefault();
+        var data = table.row($(this).parents('tr')).data();
+        $('#detalleProyecto').text('Nombre del Proyecto: ' + data.oEProyecto.Nombre);
+        $('#detalleFecha').text('Fecha de Entrega: ' + data.FeEntregaStrList);
+        $('#detalleEstado').text('Estado: ' + data.Estado);
+        $('#detalleModal').modal('show');
     });
 }
 function registerDataAjax() {

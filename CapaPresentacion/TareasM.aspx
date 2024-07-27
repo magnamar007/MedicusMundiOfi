@@ -83,6 +83,26 @@
                                 <tbody>
                                 </tbody>
                             </table>
+                            <div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Detalles de la Tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="detalleProyecto"></p>
+                <p id="detalleFecha"></p>
+                <p id="detalleEstado"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -93,5 +113,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
     <script src="vendor/jquery-ui/jquery-ui.js"></script>
     <script src="vendor/jquery-ui/idioma/datepicker-es.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="jsfr/TareaM.js" type="text/javascript"></script>    
 </asp:Content>
