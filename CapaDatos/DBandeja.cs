@@ -30,7 +30,7 @@ namespace CapaDatos
         #endregion
         public List<ETarea> ObtenerListTareasId(int IdPer)
         {
-            int IdPers = IdPer = 1;
+            
             List<ETarea> rptListaRol = new List<ETarea>();
 
             try
@@ -39,7 +39,7 @@ namespace CapaDatos
                 {
                     using (SqlCommand comando = new SqlCommand("usp_ObtenerTareasId", con))
                     {
-                        comando.Parameters.AddWithValue("@IdUsuario", IdPers);
+                        comando.Parameters.AddWithValue("@IdUsuario", IdPer);
                         comando.CommandType = CommandType.StoredProcedure;
                         con.Open();
 

@@ -17,9 +17,10 @@ namespace CapaPresentacion
 
         }
         [WebMethod]
-        public static Respuesta<List<ETarea>> Obtner(int IdPEr)
+        public static Respuesta<List<ETarea>> Obtener()
         {
-            List<ETarea> Lista = NBandeja.getInstance().ObtenerListTareasId(IdPEr);
+            int IdUsuario = Configuracion.oUsuario.IdUsuario;
+            List<ETarea> Lista = NBandeja.getInstance().ObtenerListTareasId(IdUsuario);
             //Lista = NUsuario.getInstance().ObtenerUsuarios();
 
             if (Lista != null)

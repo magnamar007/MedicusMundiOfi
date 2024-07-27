@@ -96,6 +96,7 @@
     <Content Include="IniciodeSesionM.aspx" />
     <Content Include="InicioMedicus.aspx" />
     <Content Include="jsfr\BandejaM.js" />
+    <Content Include="jsfr\HomeMasterM.js" />
     <Content Include="jsfr\IniciodeSesionM.js" />
     <Content Include="jsfr\TareaM.js" />
     <Content Include="jsfr\PersonalM.js" />

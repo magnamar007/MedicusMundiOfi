@@ -155,8 +155,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="NombreUsuario"></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="ApellidoUsuario"></span>
+                                <img id="imgUsuario" class="img-profile rounded-circle"
                                     src="imagenesU/usuaricon.png">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -212,8 +213,8 @@
     <!-- End of Page Wrapper -->
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <%--<script src="vendor/calen/jquery.min.js"></script>--%>
+    <%--<script src="vendor/jquery/jquery.min.js"></script>--%>
+    <script src="vendor/calen/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -234,6 +235,7 @@
     <script src="vendor/datatables/extensiones/js/jszip.min.js"></script>
     <script src="vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
     <script src="vendor/datatables/extensiones/js/buttons.print.min.js"></script>
+    <script src="jsfr/HomeMasterM.js"></script>
 
     <!--modificado-->
     
