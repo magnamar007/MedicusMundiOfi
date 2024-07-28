@@ -85,6 +85,7 @@
     <Content Include="css\fullcalendar.min.css" />
     <Content Include="css\sb-admin-2.css" />
     <Content Include="css\sb-admin-2.min.css" />
+    <Content Include="EntregarTarea.aspx" />
     <Content Include="imagenesU\main-logo-transparent recortada.png" />
     <Content Include="imagenesU\usuaricon.png" />
     <Content Include="img\undraw_posting_photo.svg" />
@@ -96,6 +97,7 @@
     <Content Include="IniciodeSesionM.aspx" />
     <Content Include="InicioMedicus.aspx" />
     <Content Include="jsfr\BandejaM.js" />
+    <Content Include="jsfr\EntregarTareaM.js" />
     <Content Include="jsfr\HomeMasterM.js" />
     <Content Include="jsfr\IniciodeSesionM.js" />
     <Content Include="jsfr\TareaM.js" />
@@ -1817,6 +1819,13 @@
       <DependentUpon>BandejaM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Configuracion.cs" />
+    <Compile Include="EntregarTarea.aspx.cs">
+      <DependentUpon>EntregarTarea.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EntregarTarea.aspx.designer.cs">
+      <DependentUpon>EntregarTarea.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.Master.cs">
       <DependentUpon>Home.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

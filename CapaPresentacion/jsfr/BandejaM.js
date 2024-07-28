@@ -12,6 +12,7 @@ $(document).ready(function () {
     //})
     cargarTareas();
 })
+let estadoTarea = false;
  function cargarTareas() {
      /*var request = { IdPer: 1 };*/
         $.ajax({
@@ -61,7 +62,7 @@ $(document).ready(function () {
                             //$("#txtIdTarea").val("0");
                             estadoRese = calEvent.activo;
                             console.log(calEvent.activo);
-                            //detalleReserva(calEvent.id);
+                            detalleTarea(calEvent.id);
                         }
                         //eventRender: function (event, element) {
                         //    element.attr('title', event.descripcion);
@@ -71,4 +72,59 @@ $(document).ready(function () {
 
             }
         });
-    }
+}
+
+function detalleTarea($idTar) {
+
+
+    var request = {
+        Idtarea: $idTar
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "BandejaM.aspx/DetalleTarea",
+        data: JSON.stringify(request),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+        },
+        success: function (data) {
+            if (data.d.estado) {
+
+                $("#txtIdTarea").val($idTar);
+
+                $("#txtNombreUsu").val(data.d.objeto.oEUsuario.Nombre);
+                $("#txtNombreProy").val(data.d.objeto.oEProyecto.NumeroDocumento);
+                $("#txtDescripcionTarea").val(data.d.objeto.DescripcionTarea);
+                
+                
+
+                //var idresevi = parseInt($("#txtIdReserrr").val());
+                // Validar estadoRese y habilitar o deshabilitar el botón
+                if (estadoTarea) {
+                    $("#btnEntregar").show();
+                    //$("#btnGuardarCambiosat").removeAttr("disabled");
+                } else {
+                    $("#btnEntregar").hide();
+                    //$("#btnGuardarCambiosat").attr("disabled", "disabled");
+                }
+
+                
+            } else {
+                alert("Mensaje", data.d.valor, "success");
+            }
+        }
+    });
+}
+
+$('#btnEntregar').on('click', function (e) {
+    e.preventDefault();
+    //var idresevi = parseInt($("#txtIdReserrr").val());
+    var Idtarea = $("#txtIdTarea").val();
+    //var url = 'frmVentaReserva.aspx?id=' + encodeURIComponent(idreser);
+    var url = 'EntregarTarea.aspx?id=' + Idtarea;
+
+    window.location.href = url;
+})

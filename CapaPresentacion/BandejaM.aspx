@@ -48,7 +48,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input id="txtIdTarea" class="model" name="IdRserv" value="0" type="hidden" />
+                    <input id="txtIdTarea" class="model" name="IdTarea" value="0" type="hidden" />
                     <div class="form-row">
                         <div class="form-group col-sm-5">
                             <input type="text" class="form-control input-sm" disabled id="txtTituloTarea">
@@ -64,9 +64,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-success">agregar</button>
-                    <button type="button" class="btn btn-secondary">modificar</button>
-                    <button type="button" class="btn btn-danger">eliminar</button>
+                    <button type="button" class="btn btn-success" id="btnEntregar">agregar</button>                    
                     <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
 
                 </div>

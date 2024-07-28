@@ -231,3 +231,17 @@ body{
     height: auto;
     border-radius: 1px;
 }
+
+.contenido {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    background: #fff;
+    border-radius: 30px;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
