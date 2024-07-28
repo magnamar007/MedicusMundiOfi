@@ -34,10 +34,10 @@ namespace CapaPresentacion
 
         }
         [WebMethod]
-        public static Respuesta<List<ETarea>> DetalleTarea(int idTarea)
+        public static Respuesta<List<ETarea>> DetalleTarea(int Idtarea)
         {
             //int IdUsuario = Configuracion.oUsuario.IdUsuario;
-            List<ETarea> Lista = NBandeja.getInstance().ObtenerListTareasId(idTarea);
+            List<ETarea> Lista = NBandeja.getInstance().ObtenerListTareasId(Idtarea);
             //Lista = NUsuario.getInstance().ObtenerUsuarios();
 
             if (Lista != null)
@@ -47,6 +47,23 @@ namespace CapaPresentacion
             else
             {
                 return new Respuesta<List<ETarea>>() { estado = false, objeto = null };
+            }
+
+        }
+        [WebMethod]
+        public static Respuesta<ETarea> DetalleTareaID(int Idtarea)
+        {
+            //int IdUsuario = Configuracion.oUsuario.IdUsuario;
+            List<ETarea> Lista = NTarea.getInstance().ObtenerListTareas();
+            var item = Lista.FirstOrDefault(x => x.Idtarea == Idtarea);
+            //Lista = NUsuario.getInstance().ObtenerUsuarios();
+            if (item == null)
+            {
+                return new Respuesta<ETarea>() { estado = false, valor = "Ocurrio un inconveniente intente mas tarde" };
+            }
+            else
+            {
+                return new Respuesta<ETarea>() { estado = true, objeto = item};
             }
 
         }

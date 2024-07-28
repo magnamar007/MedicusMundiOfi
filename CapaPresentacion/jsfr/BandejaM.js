@@ -60,9 +60,8 @@ let estadoTarea = false;
                             //$("#txtcelu").val(calEvent.id);
                             //$("#modalrol").modal("show");
                             //$("#txtIdTarea").val("0");
-                            estadoRese = calEvent.activo;
-                            console.log(calEvent.activo);
-                            detalleTarea(calEvent.id);
+                            //estadoRese = calEvent.activo;
+                            //detalleTarea(calEvent.id);
                         }
                         //eventRender: function (event, element) {
                         //    element.attr('title', event.descripcion);
@@ -74,50 +73,45 @@ let estadoTarea = false;
         });
 }
 
-function detalleTarea($idTar) {
+//function detalleTarea($idTar) {
 
 
-    var request = {
-        Idtarea: $idTar
-    };
+//    var request = {
+//        Idtarea: $idTar
+//    };
 
-    $.ajax({
-        type: "POST",
-        url: "BandejaM.aspx/DetalleTarea",
-        data: JSON.stringify(request),
-        dataType: "json",
-        contentType: 'application/json; charset=utf-8',
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
-        },
-        success: function (data) {
-            if (data.d.estado) {
+//    $.ajax({
+//        type: "POST",
+//        url: "BandejaM.aspx/DetalleTarea",
+//        data: JSON.stringify(request),
+//        dataType: "json",
+//        contentType: 'application/json; charset=utf-8',
+//        error: function (xhr, ajaxOptions, thrownError) {
+//            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+//        },
+//        success: function (data) {
+//            if (data.d.estado) {
 
-                $("#txtIdTarea").val($idTar);
+//                $("#txtIdTarea").val($idTar);
 
-                $("#txtNombreUsu").val(data.d.objeto.oEUsuario.Nombre);
-                $("#txtNombreProy").val(data.d.objeto.oEProyecto.NumeroDocumento);
-                $("#txtDescripcionTarea").val(data.d.objeto.DescripcionTarea);
+//                $("#txtNombreUsu").val(data.d.objeto.oEUsuario.Nombres);
+//                $("#txtNombreProy").val(data.d.objeto.oEProyecto.Nombre);
+//                $("#txtDescripcionTarea").val(data.d.objeto.DescripcionTarea);
                 
                 
-
-                //var idresevi = parseInt($("#txtIdReserrr").val());
-                // Validar estadoRese y habilitar o deshabilitar el botón
-                if (estadoTarea) {
-                    $("#btnEntregar").show();
-                    //$("#btnGuardarCambiosat").removeAttr("disabled");
-                } else {
-                    $("#btnEntregar").hide();
-                    //$("#btnGuardarCambiosat").attr("disabled", "disabled");
-                }
+//                if (estadoTarea) {
+//                    $("#btnEntregar").show();
+//                } else {
+//                    $("#btnEntregar").hide();
+//                }
 
                 
-            } else {
-                alert("Mensaje", data.d.valor, "success");
-            }
-        }
-    });
-}
+//            } else {
+//                alert("Mensaje", data.d.valor, "success");
+//            }
+//        }
+//    });
+//}
 
 $('#btnEntregar').on('click', function (e) {
     e.preventDefault();

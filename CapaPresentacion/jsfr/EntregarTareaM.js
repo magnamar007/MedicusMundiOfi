@@ -1,7 +1,18 @@
 ﻿
 $(document).ready(function () {
 
-    detalleTarea();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const idreseee = urlParams.get('id');
+    console.log(idreseee);
+    if (idreseee !== null) {
+        detalleTarea(idreseee);
+    } else {
+        //swal("Mensaje", "No hay parametro de busqueda por url.", "warning");
+        window.location.href = 'BandejaM.aspx';
+        //window.close();
+    }
+    
 
 })
 
@@ -25,7 +36,7 @@ function detalleTarea($idTarea) {
 
     $.ajax({
         type: "POST",
-        url: "BandejaM.aspx/DetalleTarea",
+        url: "BandejaM.aspx/DetalleTareaID",
         data: JSON.stringify(request),
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
@@ -34,24 +45,13 @@ function detalleTarea($idTarea) {
         },
         success: function (data) {
             if (data.d.estado) {
-
+                console.log(data.d.objeto.oEUsuario.Nombres);
                 $("#txtIdTarea").val($idTarea);
 
-                $("#txtNombreUsu").val(data.d.objeto.oEUsuario.Nombre);
-                $("#txtNombreProy").val(data.d.objeto.oEProyecto.NumeroDocumento);
+                $("#txtNombreUsu").val(data.d.objeto.oEUsuario.Nombres);
+                $("#txtNombreProy").val(data.d.objeto.oEProyecto.Nombre);
                 $("#txtDescripcionTarea").val(data.d.objeto.DescripcionTarea);
-
-
-
-                //var idresevi = parseInt($("#txtIdReserrr").val());
-                // Validar estadoRese y habilitar o deshabilitar el botón
-                if (estadoTarea) {
-                    $("#btnEntregarTarea").show();
-                    //$("#btnGuardarCambiosat").removeAttr("disabled");
-                } else {
-                    $("#btnEntregarTarea").hide();
-                    //$("#btnGuardarCambiosat").attr("disabled", "disabled");
-                }
+                
 
 
             } else {
