@@ -45,6 +45,7 @@
     <Compile Include="DBandeja.cs" />
     <Compile Include="DProyecto.cs" />
     <Compile Include="DTarea.cs" />
+    <Compile Include="DTareaEntregada.cs" />
     <Compile Include="DUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

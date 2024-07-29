@@ -56,5 +56,35 @@ namespace CapaPresentacion
 
             return rutaa;
         }
+        public string UploadPDFA(MemoryStream stream, string folder)
+        {
+            string rutaa = "";
+
+            try
+            {
+                stream.Position = 0;
+
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.pdf";
+
+                var fullPath = $"{folder}{file}";
+                var path = Path.Combine(HttpContext.Current.Server.MapPath(folder), file);
+
+                // Guardar la imagen en el sistema de archivos
+                File.WriteAllBytes(path, stream.ToArray());
+
+                // Verificar si el archivo fue guardado correctamente
+                if (File.Exists(path))
+                {
+                    rutaa = fullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar el pdf", ex);
+            }
+
+            return rutaa;
+        }
     }
 }

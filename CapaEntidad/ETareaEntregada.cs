@@ -15,5 +15,8 @@ namespace CapaEntidad
         public bool Activo { get; set; }
         public DateTime FechaRegistro { get; set; }
         public ETarea oETarea { get; set; }
+        public string PdfFull => string.IsNullOrEmpty(DocumentoPdf)
+            ? $"/imagenesU/usuaricon.png"
+            : DocumentoPdf;
     }
 }

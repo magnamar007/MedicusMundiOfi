@@ -1,6 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="EntregarTarea.aspx.cs" Inherits="CapaPresentacion.EntregarTarea" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="vendor/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <style>
+        .embed-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh; /* Ajusta esto si es necesario */
+        }
+        embed {
+            border: 1px solid #ccc; /* Opcional, solo para ver los bordes del embed */
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <div class="row">
@@ -25,7 +36,7 @@
                                 <label for="txtDescripcionTarea">Descripcion de la tarea</label>
                                 <textarea class="form-control" id="txtDescripcionTarea" name="DescripcionTarea" cols="40" rows="3" disabled></textarea>
                                 <label for="txtComentario">Comentario</label>
-                                <textarea class="form-control" id="txtComentario" name="ComentarioTarea" cols="40" rows="3"></textarea>
+                                <textarea class="form-control" id="txtComentario" name="ComentarioTarea" cols="40" rows="3" placeholder="ingrese comentario no mas de 300 letras"></textarea>
                                 <label for="docPdf">Subir pdf</label>
                                 <input type="file" class="form-control-file" id="pdfFile" name="pdfFile" required />
                                 <br />
@@ -46,8 +57,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="form-row col-sm-12">
-                                    <embed id="vistaPrevia" type="application/pdf" width="400" height="450"/>
+                                <div class="embed-container">
+                                    <embed id="vistaPrevia" type="application/pdf" width="400" height="450" />
                                 </div>
                             </div>
                         </div>

@@ -17,8 +17,6 @@ $(document).ready(function () {
 })
 
 
-
-
 document.querySelector('#pdfFile').addEventListener('change', () => {
 
     var pdffFile = document.querySelector('#pdfFile').files[0];
@@ -28,7 +26,8 @@ document.querySelector('#pdfFile').addEventListener('change', () => {
 })
 
 function detalleTarea($idTarea) {
-
+    var fileInput = document.getElementById('pdfFile');
+    var file = fileInput.files[0];
 
     var request = {
         Idtarea: $idTarea
@@ -60,8 +59,45 @@ function detalleTarea($idTarea) {
         }
     });
 }
+function registerDataAjax() {
+    var fileInput = document.getElementById('pdfFile');
+    var file = fileInput.files[0];
+    var reader = new FileReader(file);
+        reader.onload = function (e) {
+               var arrayBuffer = e.target.result;
+               var bytes = new Uint8Array(arrayBuffer);                
+        }
+        var request = {
+            oETareaEntregada: {
+                Idtarea: parseInt($("#txtIdTarea").val()),
+                Comentario: $("#txtComentario").val(),
+                pdfBytes: Array.from(bytes)
+            }
+        
+    }
+    
+    $.ajax({
+        type: "POST",
+        url: "EntregarTarea.aspx/RegistrarTareaEntregada",
+        data: JSON.stringify(request),
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        beforeSend: function () {
+            // Mostrar overlay de carga antes de enviar la solicitud modal-content
+            $("#loadTar").LoadingOverlay("show");
+        },
+        success: function (response) {
+            console.log('se realizo un registro');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //$("#loadTar").LoadingOverlay("hide");
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+        }
+    });
+}
 $('#btnEntregarTarea').on('click', function (e) {
     e.preventDefault();
+    registerDataAjax();
     alert('Se realizo la accion');  
     var url = 'BandejaM.aspx';
 

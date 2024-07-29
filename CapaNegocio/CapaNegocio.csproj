@@ -44,6 +44,7 @@
     <Compile Include="NBandeja.cs" />
     <Compile Include="NProyecto.cs" />
     <Compile Include="NTarea.cs" />
+    <Compile Include="NTareaEntregada.cs" />
     <Compile Include="NUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

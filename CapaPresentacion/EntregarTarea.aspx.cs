@@ -34,5 +34,39 @@ namespace CapaPresentacion
             }
 
         }
+        [WebMethod]
+        public static Respuesta<bool> RegistrarTareaEntregada(ETareaEntregada oETareaEntregada, byte[] pdfBytes)
+        {
+            try
+            {
+                var pdfUrl = string.Empty;
+
+                if (pdfUrl != null && pdfUrl.Length > 0)
+                {
+                    var stream = new MemoryStream(pdfBytes);
+                    string folder = "/documentoPdfU/";
+                    pdfUrl = Utilidadesj.getInstance().UploadPDFA(stream, folder);
+                }
+
+                ETareaEntregada obj = new ETareaEntregada
+                {
+                    Idtarea = oETareaEntregada.Idtarea,
+                    Comentario = oETareaEntregada.Comentario,
+                    DocumentoPdf = pdfUrl
+                };
+
+                bool Respuesta = NTareaEntregada.getInstance().RegistrarTareaEntregada(obj);
+                var respuesta = new Respuesta<bool>
+                {
+                    estado = Respuesta,
+                    valor = Respuesta ? "Se registro correctamente" : "Error al registrar falta pdf"
+                };
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<bool> { estado = false, valor = "Ocurrió un error: " + ex.Message };
+            }
+        }
     }
 }
