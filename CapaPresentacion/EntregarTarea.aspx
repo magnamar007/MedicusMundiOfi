@@ -25,18 +25,18 @@
                         <input type="hidden" value="0" id="txtIdTarea" />
                         <div class="form-row">
                             <div class="form-group col-sm-6">
-                                <label for="txtNombreUsu">Nombre</label>
+                                <label for="txtNombreUsu">Nombre de usuario asignado</label>
                                 <input type="text" class="form-control input-group-sm" disabled id="txtNombreUsu"/>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="txtNombreProy">Proyecto</label>
+                                <label for="txtNombreProy">Proyecto asignado de tarea</label>
                                 <input type="text" class="form-control input-group-sm" disabled id="txtNombreProy"/>
                             </div>
                             <div class="form-group col-sm-12">
-                                <label for="txtDescripcionTarea">Descripcion de la tarea</label>
+                                <label for="txtDescripcionTarea">Descripcion de la tarea asignada</label>
                                 <textarea class="form-control" id="txtDescripcionTarea" name="DescripcionTarea" cols="40" rows="3" disabled></textarea>
-                                <label for="txtComentario">Comentario</label>
-                                <textarea class="form-control" id="txtComentario" name="ComentarioTarea" cols="40" rows="3" placeholder="ingrese comentario no mas de 300 letras"></textarea>
+                                <label for="txtComentario">Comentario de la tarea realizada</label>
+                                <textarea class="form-control" id="txtComentario" name="ComentarioTarea" cols="40" rows="3" placeholder="ingrese comentario referente a la tarea asignada no mas de 300 letras"></textarea>
                                 <label for="docPdf">Subir pdf</label>
                                 <input type="file" class="form-control-file" id="pdfFile" name="pdfFile" required />
                                 <br />

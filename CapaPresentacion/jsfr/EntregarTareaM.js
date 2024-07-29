@@ -59,47 +59,80 @@ function detalleTarea($idTarea) {
         }
     });
 }
-function registerDataAjax() {
-    var fileInput = document.getElementById('pdfFile');
-    var file = fileInput.files[0];
-    var reader = new FileReader(file);
-        reader.onload = function (e) {
-               var arrayBuffer = e.target.result;
-               var bytes = new Uint8Array(arrayBuffer);                
-        }
-        var request = {
-            oETareaEntregada: {
-                Idtarea: parseInt($("#txtIdTarea").val()),
-                Comentario: $("#txtComentario").val(),
-                pdfBytes: Array.from(bytes)
-            }
-        
-    }
-    
+function sendDataToServer(request) {
     $.ajax({
         type: "POST",
         url: "EntregarTarea.aspx/RegistrarTareaEntregada",
         data: JSON.stringify(request),
-        contentType: 'application/json; charset=utf-8',
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
         beforeSend: function () {
             // Mostrar overlay de carga antes de enviar la solicitud modal-content
-            $("#loadTar").LoadingOverlay("show");
+            $(".card-body").LoadingOverlay("show");
         },
         success: function (response) {
-            console.log('se realizo un registro');
+            $(".card-body").LoadingOverlay("hide");
+            if (response.d.estado) {
+                var url = 'BandejaM.aspx';
+
+                window.location.href = url;
+                //alert(response.d.valor);
+                //swal("Mensaje", "Registro Exitoso credenciales enviado al correo Registrado", "success");
+            } else {
+                alert(response.d.valor);
+                //swal("Mensaje", "Error al registrar ingrese otro correo", "warning");
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            //$("#loadTar").LoadingOverlay("hide");
+            $(".card-body").LoadingOverlay("hide");
             console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
         }
     });
 }
-$('#btnEntregarTarea').on('click', function (e) {
-    e.preventDefault();
-    registerDataAjax();
-    alert('Se realizo la accion');  
-    var url = 'BandejaM.aspx';
+function registerDataAjax() {
 
-    window.location.href = url;
+    var fileInput = document.getElementById('pdfFile');
+    var file = fileInput.files[0];
+    console.log('llego register');
+    if (file) {
+        var maxSize = 2 * 1024 * 1024; // 2 MB en bytes
+        if (file.size > maxSize) {
+            alert("La imagen seleccionada es demasiado grande max 1.5 Mb.");
+            //swal("Error", "La imagen seleccionada es demasiado grande max 1.5 Mb.", "error");pdfFile
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var arrayBuffer = e.target.result;
+            var bytes = new Uint8Array(arrayBuffer);
+
+            var request = {
+                oETareaEntregada: {
+                    Idtarea: parseInt($("#txtIdTarea").val()),
+                    Comentario: $("#txtComentario").val()
+                },
+                    pdfBytes: Array.from(bytes)
+            };
+
+            sendDataToServer(request);
+        };
+        reader.readAsArrayBuffer(file);
+    } else {
+        var request = {
+            oETareaEntregada: {
+                Idtarea: parseInt($("#txtIdTarea").val()),
+                Comentario: $("#txtComentario").val()
+            },
+                pdfBytes: null
+        };
+
+        sendDataToServer(request);
+
+    }
+
+}
+$('#btnEntregarTarea').on('click', function () {
+
+    registerDataAjax();
+    //alert('llego');
 })

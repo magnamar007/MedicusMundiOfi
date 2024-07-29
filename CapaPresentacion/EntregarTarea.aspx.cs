@@ -41,7 +41,7 @@ namespace CapaPresentacion
             {
                 var pdfUrl = string.Empty;
 
-                if (pdfUrl != null && pdfUrl.Length > 0)
+                if (pdfBytes != null && pdfBytes.Length > 0)
                 {
                     var stream = new MemoryStream(pdfBytes);
                     string folder = "/documentoPdfU/";

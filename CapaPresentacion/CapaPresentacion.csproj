@@ -1873,6 +1873,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.Master" />
+    <Content Include="documentoPdfU\pdf-seriales-de-oro-para-windows-7-x86-32-bits_compress.pdf" />
     <None Include="packages.config" />
     <Content Include="scss\navs\_global.scss" />
     <Content Include="scss\navs\_sidebar.scss" />
@@ -2063,9 +2064,7 @@
       <Name>CapaNegocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="documentoPdfU\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
