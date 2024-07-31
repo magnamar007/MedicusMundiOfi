@@ -34,11 +34,13 @@ let estadoTarea = false;
                             title: 'Datos: ' + row.oEUsuario.Nombres + ' - ' + row.oEProyecto.Nombre,
                             start: row.FeEntregaStrCalend,
                             descripcion: row.DescripcionTarea,
+                            estado: row.Estado,
                             activo: row.Activo,
                             color: row.Color
                         });
                     });
 
+                    
                     $('#calendar').fullCalendar('destroy');
                     $('#calendar').fullCalendar({
                         header: {
@@ -55,6 +57,12 @@ let estadoTarea = false;
                             $("#txtTituloTarea").val(calEvent.title);
                             $("#txtFechaTarea").val(calEvent.start);
                             $("#txtTarea").val(calEvent.descripcion);
+                            var Estado = calEvent.estado;
+                            if (Estado == "Sin Entregar") {
+                                $("#btnEntregar").show();
+                            } else {
+                                $("#btnEntregar").hide();
+                            }
                             $("#modalTareas").modal();
                             //$("#txtDocumentoClienteat").val(calEvent.descripcion);
                             //$("#txtcelu").val(calEvent.id);

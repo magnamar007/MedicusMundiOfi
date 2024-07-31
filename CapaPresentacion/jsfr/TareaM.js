@@ -131,14 +131,23 @@ function dtListaTareasId() {
             { "data": "Idtarea", "visible": false, "searchable": false },
             { "data": "oEProyecto.Nombre" },
             { "data": "FeEntregaStrList" },
-            { "data": "Estado" },
             {
-                "defaultContent": '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>',
-                "orderable": false,
-                "searchable": false,
-                "width": "80px"
-            }
+                "data": "Estado"
+            },
+            {
+                "data": "Activo", render: function (data) {
+                    let editarButon = '';
+                    if (data == true) {
+                        editarButon = '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>';
+                    }
+                    return `'<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>'
+                            ${editarButon}`;
+                },
+                    "orderable": false,
+                        "searchable": false,
+                            "width": "80px"
+            },
+            
         ],
         "dom": "rt",
         "language": {
@@ -146,14 +155,32 @@ function dtListaTareasId() {
         },
        
     });
+    //$('#tbTarea tbody').on('click', '.btn-editar', function (e) {
+    //    e.preventDefault();
+    //    var Estado = ;
+    //    if (Estado == "Sin Entregar") {
+    //        $(".btn-editar").show();
+    //    } else {
+    //        $(".btn-editar").hide();
+    //    }
+    //});
     $('#tbTarea tbody').on('click', '.btn-detalle', function (e) {
         e.preventDefault();
-        var data = table.row($(this).parents('tr')).data();
+        let filaSeleccionada;
+        if ($(this).closest("tr").hasClass("child")) {
+            filaSeleccionada = $(this).closest("tr").prev();
+        } else {
+            filaSeleccionada = $(this).closest("tr");
+        }
+        const data = table.row(filaSeleccionada).data();
+        //var data = table.row($(this).parents('tr')).data();
+        $('#txtIdTarea').val(data.Idtarea);
         $('#detalleProyecto').text('Nombre del Proyecto: ' + data.oEProyecto.Nombre);
         $('#detalleFecha').text('Fecha de Entrega: ' + data.FeEntregaStrList);
         $('#detalleEstado').text('Estado: ' + data.Estado);
         $('#detalleModal').modal('show');
     });
+
 }
 function registerDataAjax() {
     //parseFloat($("#txtPresupuesto").val())
@@ -286,5 +313,12 @@ $("#cboUsuarios").change(function () {
     } catch (error) {
         console.error("Error en dtListaTareasId ", error);
     }
+
+});
+$("#descargarPdf").on('click', function () {
+    console.log('se ejecuto este boton');
+    var idTarea = $("#txtIdTarea").val();
+    var url = 'visualizarPdf.aspx?id=' + idTarea;
+    window.open(url, '');
 
 });

@@ -59,5 +59,53 @@ namespace CapaDatos
 
             return respuesta;
         }
+        public List<ETareaEntregada> ObtenerListTareaEntregada()
+        {
+            List<ETareaEntregada> rptListaRol = new List<ETareaEntregada>();
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerTareasEntregadas", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptListaRol.Add(new ETareaEntregada()
+                                {
+                                    IdEntregada = Convert.ToInt32(dr["IdEntregada"]),
+                                    Idtarea = Convert.ToInt32(dr["Idtarea"]),
+                                    Comentario = dr["Comentario"].ToString(),
+                                    DocumentoPdf = dr["DocumentoPdf"].ToString(),
+                                    Activo = Convert.ToBoolean(dr["Activo"]),
+                                    oETarea = new ETarea
+                                    {
+                                        IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                        IdProyecto = Convert.ToInt32(dr["IdProyecto"]),
+                                        DescripcionTarea = dr["DescripcionTarea"].ToString(),
+                                        FechaEntrega = Convert.ToDateTime(dr["FechaEntrega"].ToString()),
+                                        Estado = dr["Estado"].ToString(),
+                                        Activo = Convert.ToBoolean(dr["Activo"])
+                                    }
+                                    
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                throw new Exception("Error al obtener las areas", ex);
+            }
+
+            return rptListaRol;
+        }
     }
 }

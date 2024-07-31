@@ -59,7 +59,7 @@
                     </div>
                     <div class="container-center">
                     <label for="txtTarea">Descripcion de tarea</label>
-                    <textarea class="form-control" id="txtTarea" name="DescripcionTarea" cols="40" rows="3"></textarea>
+                    <textarea class="form-control" id="txtTarea" name="DescripcionTarea" cols="40" rows="3" disabled></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

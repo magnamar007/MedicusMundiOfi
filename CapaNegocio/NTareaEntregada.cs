@@ -31,5 +31,9 @@ namespace CapaNegocio
         {
             return DTareaEntregada.getInstance().RegistrarTareaEntregada(oETareaEntregada);
         }
+        public List<ETareaEntregada> ObtenerListTareaEntregada()
+        {
+            return DTareaEntregada.getInstance().ObtenerListTareaEntregada();
+        }
     }
 }

@@ -68,5 +68,19 @@ namespace CapaPresentacion
                 return new Respuesta<bool> { estado = false, valor = "Ocurrió un error: " + ex.Message };
             }
         }
+        [WebMethod]
+        public static Respuesta<List<ETareaEntregada>> obtenerlist()
+        {
+            List<ETareaEntregada> Lista = NTareaEntregada.getInstance().ObtenerListTareaEntregada();
+
+            if (Lista != null)
+            {
+                return new Respuesta<List<ETareaEntregada>>() { estado = true, objeto = Lista };
+            }
+            else
+            {
+                return new Respuesta<List<ETareaEntregada>>() { estado = false, objeto = null };
+            }
+        }
     }
 }

@@ -1808,6 +1808,7 @@
     <Content Include="vendor\sweetalert\sweetalert.js" />
     <Content Include="vendor\toastr\toastr.min.css" />
     <Content Include="vendor\toastr\toastr.min.js" />
+    <Content Include="visualizarPdf.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1870,6 +1871,13 @@
       <DependentUpon>TareasM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utilidadesj.cs" />
+    <Compile Include="visualizarPdf.aspx.cs">
+      <DependentUpon>visualizarPdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="visualizarPdf.aspx.designer.cs">
+      <DependentUpon>visualizarPdf.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.Master" />
