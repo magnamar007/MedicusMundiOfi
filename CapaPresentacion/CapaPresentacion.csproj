@@ -103,6 +103,8 @@
     <Content Include="jsfr\TareaM.js" />
     <Content Include="jsfr\PersonalM.js" />
     <Content Include="jsfr\ProyectosM.js" />
+    <Content Include="jsfr\TransaccionesM.js" />
+    <Content Include="TransaccionesM.aspx" />
     <Content Include="vendor\calen\es.js" />
     <Content Include="vendor\calen\fullcalendar.min.js" />
     <Content Include="vendor\calen\jquery.min.js" />
@@ -1869,6 +1871,13 @@
     </Compile>
     <Compile Include="TareasM.aspx.designer.cs">
       <DependentUpon>TareasM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TransaccionesM.aspx.cs">
+      <DependentUpon>TransaccionesM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TransaccionesM.aspx.designer.cs">
+      <DependentUpon>TransaccionesM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utilidadesj.cs" />
     <Compile Include="visualizarPdf.aspx.cs">

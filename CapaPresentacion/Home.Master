@@ -75,6 +75,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="PersonalM.aspx">Usuarios</a>
                             <a class="collapse-item" href="ProyectosM.aspx">Proyectos</a>
+                            <a class="collapse-item" href="TransaccionesM.aspx">Transacciones</a>
                         </div>
                     </div>
                 </li>
