@@ -23,7 +23,7 @@
                 </div>
                 <hr />
                 <div class="col-sm-12">
-                    <table class="table table-striped table-sm" id="tbTarea">
+                    <table class="table table-striped table-sm" id="tbTransaccion">
                         <thead>
                             <tr>
                                 <th>ID Transaccion</th>

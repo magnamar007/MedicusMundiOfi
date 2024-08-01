@@ -83,8 +83,92 @@ function cargarProyectos() {
         }
     });
 }
+function dtListaTransancionesId() {
+    console.log("Función dtListaTransancionesId ejecutada");
+    if ($.fn.DataTable.isDataTable("#tbTransaccion")) {
+        $("#tbTransaccion").DataTable().destroy();
+        $('#tbTransaccion tbody').empty();
+    }
+
+    //var request = { IdPer: $("#cboUsuarios").val() }
+
+    var request = { idPro: $("#cboProyectos").val() == null ? 0 : $("#cboProyectos").val() }
+
+    table = $("#tbTarea").DataTable({
+        responsive: true,
+        "ajax": {
+            "url": 'TransaccionesM.aspx/ListTransaccionId',
+            "type": "POST",
+            "contentType": "application/json; charset=utf-8",
+            "dataType": "json",
+            "data": function () {
+                return JSON.stringify(request);
+            },
+            "dataSrc": function (json) {
+                if (json.d.estado) {
+                    return json.d.objeto;
+                } else {
+                    return [];
+                }
+            }
+        },
+        "columns": [
+            { "data": "Idtarea", "visible": false, "searchable": false },
+            { "data": "oEProyecto.Nombre" },
+            { "data": "FeEntregaStrList" },
+            {
+                "data": "Estado"
+            },
+            {
+                "data": "Activo", render: function (data) {
+                    let editarButon = '';
+                    if (data == true) {
+                        editarButon = '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>';
+                    }
+                    return `'<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>'
+                            ${editarButon}`;
+                },
+                "orderable": false,
+                "searchable": false,
+                "width": "80px"
+            },
+
+        ],
+        "dom": "rt",
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        },
+
+    });
+    //$('#tbTarea tbody').on('click', '.btn-editar', function (e) {
+    //    e.preventDefault();
+    //    var Estado = ;
+    //    if (Estado == "Sin Entregar") {
+    //        $(".btn-editar").show();
+    //    } else {
+    //        $(".btn-editar").hide();
+    //    }
+    //});
+    //$('#tbTarea tbody').on('click', '.btn-detalle', function (e) {
+    //    e.preventDefault();
+    //    let filaSeleccionada;
+    //    if ($(this).closest("tr").hasClass("child")) {
+    //        filaSeleccionada = $(this).closest("tr").prev();
+    //    } else {
+    //        filaSeleccionada = $(this).closest("tr");
+    //    }
+    //    const data = table.row(filaSeleccionada).data();
+    //    //var data = table.row($(this).parents('tr')).data();
+    //    $('#txtIdTarea').val(data.Idtarea);
+    //    $('#detalleProyecto').text('Nombre del Proyecto: ' + data.oEProyecto.Nombre);
+    //    $('#detalleFecha').text('Fecha de Entrega: ' + data.FeEntregaStrList);
+    //    $('#detalleEstado').text('Estado: ' + data.Estado);
+    //    $('#detalleModal').modal('show');
+    //});
+
+}
 function sendDataToServer(request) {
-    $.ajax({
+    $.ajax({    
         type: "POST",
         url: "TransaccionesM.aspx/GuardarTransaccion",
         data: JSON.stringify(request),

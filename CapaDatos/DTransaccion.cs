@@ -60,5 +60,98 @@ namespace CapaDatos
 
             return respuesta;
         }
+        public List<ETransaccion> obtenerListaTransacciones()
+        {
+            List<ETransaccion> rptListaRol = new List<ETransaccion>();
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("sp_ObtenerTransacciones", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptListaRol.Add(new ETransaccion()
+                                {
+                                    Idtransaccion = Convert.ToInt32(dr["Idtransaccion"]),
+                                    IdProyecto = Convert.ToInt32(dr["IdProyecto"]),
+                                    IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                    DescripcionPago = dr["DescripcionPago"].ToString(),
+                                    FechaTransa = Convert.ToDateTime(dr["FechaTransa"].ToString()),
+                                    TipoPago = dr["TipoPago"].ToString(),
+                                    Monto = float.Parse(dr["Monto"].ToString()),
+                                    oEProyecto = new EProyecto()
+                                    {
+                                        Nombre = dr["Nombre"].ToString()
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                throw new Exception("Error al obtener las areas", ex);
+            }
+
+            return rptListaRol;
+        }
+        public List<ETransaccion> obtenerListaTransaccionesId(int idPro)
+        {
+            List<ETransaccion> rptListaRol = new List<ETransaccion>();
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.getInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("sp_ObtenerTransaccionesId", con))
+                    {
+                        comando.Parameters.AddWithValue("@IdProyecto", idPro);
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptListaRol.Add(new ETransaccion()
+                                {
+                                    Idtransaccion = Convert.ToInt32(dr["Idtransaccion"]),
+                                    IdProyecto = Convert.ToInt32(dr["IdProyecto"]),
+                                    IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                    DescripcionPago = dr["DescripcionPago"].ToString(),
+                                    FechaTransa = Convert.ToDateTime(dr["FechaTransa"].ToString()),
+                                    TipoPago = dr["TipoPago"].ToString(),
+                                    Monto = float.Parse(dr["Monto"].ToString()),
+                                    oEProyecto = new EProyecto()
+                                    {
+                                        Nombre = dr["Nombre"].ToString()
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                throw new Exception("Error al obtener las areas", ex);
+            }
+
+            return rptListaRol;
+        }
     }
 }

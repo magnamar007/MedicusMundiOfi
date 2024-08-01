@@ -31,5 +31,13 @@ namespace CapaNegocio
         {
             return DTransaccion.getInstance().RegistrarTransaccion(oTransaccion);
         }
+        public List<ETransaccion> ObtenerListTransacciones()
+        {
+            return DTransaccion.getInstance().obtenerListaTransacciones();
+        }
+        public List<ETransaccion> ObtenerListTransaccionesId(int idPro)
+        {
+            return DTransaccion.getInstance().obtenerListaTransaccionesId(idPro);
+        }
     }
 }

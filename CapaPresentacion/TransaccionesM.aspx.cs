@@ -41,5 +41,19 @@ namespace CapaPresentacion
                 return new Respuesta<bool> { estado = false, valor = "Ocurrió un error: " + ex.Message };
             }
         }
+        [WebMethod]
+        public static Respuesta<List<ETransaccion>> ListTransaccionId(int idPro)
+        {
+            List<ETransaccion> Lista = NTransaccion.getInstance().ObtenerListTransaccionesId(idPro);
+
+            if (Lista != null)
+            {
+                return new Respuesta<List<ETransaccion>>() { estado = true, objeto = Lista };
+            }
+            else
+            {
+                return new Respuesta<List<ETransaccion>>() { estado = false, objeto = null };
+            }
+        }
     }
 }
