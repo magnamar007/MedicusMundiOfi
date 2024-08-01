@@ -35,6 +35,7 @@ function ObtenerFecha() {
     return output;
 }
 
+let transaccionButon = '';
 function dtProyect() {
     // Verificar si el DataTable ya está inicializado
     if ($.fn.DataTable.isDataTable("#tbProyecto")) {
@@ -70,16 +71,23 @@ function dtProyect() {
             },            
             { "data": "Presupuesto" },
             {
-                "data": "Activo", render: function (data) {
-                    if (data == true)
+                "data": "Activo", render: function (data) {    
+                    
+                    if (data == true) {
+                        transaccionButon = '<button class="btn btn-primary btn-guardar btn-sm"><i class="fas fa-comment-dollar"></i></button>'
+
                         return '<span class="badge badge-info">Activo</span>';
+                    }
                     else
-                        return '<span class="badge badge-danger">No Activo</span>';
-                }
-            },
-            {
+                    {
+                        transaccionButon.disabled = true;
+                        return '<span class="badge badge-danger">No Activo</span>';      
+                    }
+                }            
+            },            
+            {   
                 "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-danger btn-eliminar btn-sm"><i class="fas fa-trash-alt"></i></button>',
+                    '<button class="btn btn-primary btn-guardar btn-sm"><i class="fas fa-comment-dollar"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "width": "80px"
@@ -280,6 +288,19 @@ $("#tbProyecto tbody").on("click", ".btn-editar", function (e) {
     $('#txtPresupuesto').val(model.Presupuesto);
     $("#cboEstado").val() == "1" ? true : false;
     $("#OcultarEs").show();
+
+})
+$("#tbProyecto tbody").on("click", ".btn-guardar", function (e) {
+    e.preventDefault();
+    let filaSeleccionada;
+
+    if ($(this).closest("tr").hasClass("child")) {
+        filaSeleccionada = $(this).closest("tr").prev();
+    } else {
+        filaSeleccionada = $(this).closest("tr");
+    }
+    $("#modalTransaccion").modal();
+    
 
 })
 $('#btnGuardarCambios').on('click', function () {

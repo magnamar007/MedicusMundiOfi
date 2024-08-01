@@ -100,17 +100,17 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="modalTransaccion" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6>Detalle Usuario</h6>
+                    <h6>Detalle Transaccion</h6>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" value="0" id="txtIdUsuario">
+                    <input type="hidden" value="0" id="txtIdtransaccion">
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="form-row">
@@ -119,46 +119,41 @@
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtNombre" name="Nombre">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="txtapellido">Apellidos</label>
-                                    <input type="text" class="form-control form-control-sm input-validar" id="txtapellido" name="Apellidos">
+                                    <label for="txtProyecto">Proyecto</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtProyecto" name="Apellidos">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label for="txtDescripciondePago">Descripcion de pago</label>
+                                    <textarea class="form-control" id="txtDescripciondePago" name="DescripciondePago" cols="40" rows="3"></textarea>
+                                </div>                               
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtFechaTransa">Fecha de Transaccion</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtFechaTransa" name="FechaTransa">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                     <label for="cboMetodoPago">Metodo de pago</label>
+                                        <select class="form-control form-control-sm" id="cboMetodoPago">
+                                        <option>QR virtual, Transferencia</option>
+                                        <option>Moneda Fisico</option>
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <label for="txtCorreo">Correo</label>
-                                    <input type="email" class="form-control form-control-sm input-validar" id="txtCorreo" name="Correo">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="txtClave">Contraseña</label>
-                                    <input type="text" class="form-control form-control-sm input-validar" id="txtClave" name="Contraseña">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <label for="txtTelefono">Celular</label>
-                                    <input type="text" class="form-control form-control-sm input-validar" id="txtTelefono" name="Celular">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="cboRol">Cargo</label>
-                                    <select class="form-control form-control-sm" id="cboRol">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <label for="cboEstado">Estado</label>
-                                    <select class="form-control form-control-sm" id="cboEstadoM">
-                                        <option value="1">Activo</option>
-                                        <option value="0">No Activo</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="txtFoto">Foto</label>
-                                    <input class="form-control-file" type="file" id="txtFoto" />
+                                    <label for="txtMonto">Monto de Pago</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtMonto" name="Celular">                                    
                                 </div>
                             </div>
                         </div>
 
+                    <div class="col-sm-4 text-center">
+                         <%--<img id="imgUsuario" style="max-width:200px;" src="https://images.unsplash.com/photo-1519648023493-d82b5f8d7b8a?w=300" class="rounded mx-auto d-block" alt="Foto usuario">--%>
+                        <img id="imgUsuarioM" src="imagenesU/main-logo-transparent recortada.png" alt="Foto usuario" style="height: 200px; max-width: 200px; border-radius: 50%;">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
