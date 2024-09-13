@@ -30,7 +30,7 @@
                         <h6 class="m-0 font-weight-bold text-white">Tarea</h6>
                     </div>
                     <div class="card-body">
-                        <input type="hidden" id="txtIdTarea">
+                        <input type="hidden" value="0" id="txtIdTarea">
                         <div class="container-center">
                             <label for="txtTarea">Descripcion de tarea</label>
                             <textarea class="form-control" id="txtTarea" name="DescripcionTarea" cols="40" rows="3" placeholder="Escriba la descripcion de la Tarea"></textarea>

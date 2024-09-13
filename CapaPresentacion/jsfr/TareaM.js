@@ -290,11 +290,15 @@ $('#btnResgistrarTarea').on('click', function () {
 
     
     if (parseInt($("#txtIdTarea").val()) == 0) {
+        //var id = $("#txtIdTarea").val();
+        //alert(id);
         //swal("Mensaje", "Guardado.", "success")
         //registerDataAjax();
         registerDataAjax();
     } else {
+        //console.log($("#txtIdTarea").val());
         alert("para actualizar");
+        console.log(txtIdTarea);
         //editarDataAjaxU();
         //editarDataAjax();
     }

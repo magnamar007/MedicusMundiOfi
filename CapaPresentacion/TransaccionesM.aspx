@@ -88,6 +88,10 @@
                                 <label for="txtMonto">Monto de Pago</label>
                                 <input type="text" class="form-control form-control-sm input-validar" id="txtMonto" name="Celular">                                    
                             </div>
+                            <div class="form-group col-sm-6">
+                                <label for="txtFotoTrans">FotoTransaccion</label>
+                                <input class="form-control-file" type="file" id="txtFotoTrans"/>
+                            </div>
                         </div>
                     </div>
 

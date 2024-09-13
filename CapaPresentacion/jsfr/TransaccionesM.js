@@ -4,6 +4,7 @@ $(document).ready(function () {
     cargarUsuariosN();
     cargarProyectosN();
     cargarProyectos();
+    dtListaTransancionesId();
     $.datepicker.setDefaults($.datepicker.regional["es"])
 
     
@@ -94,7 +95,7 @@ function dtListaTransancionesId() {
 
     var request = { idPro: $("#cboProyectos").val() == null ? 0 : $("#cboProyectos").val() }
 
-    table = $("#tbTarea").DataTable({
+    table = $("#tbTransaccion").DataTable({
         responsive: true,
         "ajax": {
             "url": 'TransaccionesM.aspx/ListTransaccionId',
@@ -113,21 +114,22 @@ function dtListaTransancionesId() {
             }
         },
         "columns": [
-            { "data": "Idtarea", "visible": false, "searchable": false },
+            { "data": "Idtransaccion", "visible": false, "searchable": false },
             { "data": "oEProyecto.Nombre" },
-            { "data": "FeEntregaStrList" },
+            { "data": "FechaTransa"},
+            { "data": "TipoPago" },
             {
-                "data": "Estado"
+                "data": "Monto"
             },
             {
-                "data": "Activo", render: function (data) {
-                    let editarButon = '';
-                    if (data == true) {
-                        editarButon = '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>';
-                    }
-                    return `'<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>'
-                            ${editarButon}`;
-                },
+                //"data": "Activo", render: function (data) {
+                //    let editarButon = '';
+                //    if (data == true) {
+                //        editarButon = '<button class="btn btn-danger btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>';
+                //    }
+                //    return `'<button class="btn btn-info btn-detalle btn-sm" title="Ver Detalle"><i class="fas fa-eye"></i></button>'
+                //            ${editarButon}`;
+                //},
                 "orderable": false,
                 "searchable": false,
                 "width": "80px"

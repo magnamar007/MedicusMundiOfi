@@ -7,9 +7,9 @@ let controlProducto = document.getElementById("charProductos");
 let myPieChart = new Chart(controlProducto, {
   type: 'doughnut',
   data: {
-    labels: ["Producto A", "Producto B", "Producto C", "Producto D"],
+      labels: ["Proyecto 1", "Proyecto 2", "Proyecto 3", "Proyecto 4"],
     datasets: [{
-      data: [55, 30, 15, 10],
+      data: [5, 8, 4, 10],
       backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc',"#FF785B"],
       hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf',"#FF5733"],
       hoverBorderColor: "rgba(234, 236, 244, 1)",

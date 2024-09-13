@@ -95,7 +95,7 @@
                 </li>
 
                 <!-- Nav Item - Venta Collapse Menu -->
-                <li class="nav-item">
+                <%--<li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta">
                         <i class="fas fa-fw fa-tags"></i>
                         <span>Ventas</span>
@@ -106,7 +106,7 @@
                             <a class="collapse-item" href="historial_venta.html">Historial Venta</a>
                         </div>
                     </div>
-                </li>
+                </li>--%>
 
                 <!-- Nav Item - Reportes Collapse Menu -->
                 <li class="nav-item">
@@ -198,13 +198,13 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+<%--            <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2024</span>
                     </div>
                 </div>
-            </footer>
+            </footer>--%>
             <!-- End of Footer -->
 
         </div>
